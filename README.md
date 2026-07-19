@@ -22,3 +22,7 @@ To build for prodution:
 ```shell
 yarn build
 ```
+
+## Credits
+
+Originally scaffolded from the [electron-vite-vue](https://github.com/electron-vite/electron-vite-vue) template by [草鞋没号](https://github.com/caoxiemeihao).
