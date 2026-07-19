@@ -1,0 +1,46 @@
+# https://www.electron.build/configuration
+appId: com.jeanribeiro.screen-recorder
+productName: Screen Recorder
+copyright: Copyright © 2026 Jean Ribeiro
+directories:
+  output: release/${version}
+  buildResources: build
+files:
+  - out/**
+  - resources/**
+asarUnpack:
+  # ffmpeg must be a real file on disk to be spawnable.
+  - '**/node_modules/ffmpeg-static/**'
+npmRebuild: false
+
+mac:
+  category: public.app-category.video
+  target:
+    - dmg
+    - zip # required by electron-updater on macOS
+  artifactName: ${name}-${version}-mac-${arch}.${ext}
+  # Unsigned community builds; see RELEASING.md for the signing story.
+  identity: null
+
+win:
+  target:
+    - nsis
+  artifactName: ${name}-${version}-win-${arch}.${ext}
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+
+linux:
+  target:
+    - AppImage
+    - deb
+  category: Video
+  maintainer: Jean Ribeiro <contact@jeanribeiro.dev>
+  artifactName: ${name}-${version}-linux-${arch}.${ext}
+
+publish:
+  provider: github
+  owner: jeeanribeiro
+  repo: electron-screen-recorder
