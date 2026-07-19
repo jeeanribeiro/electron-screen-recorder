@@ -172,7 +172,10 @@ export async function trashRecording(id: string): Promise<void> {
   sendToRenderer('event:library-changed')
 }
 
-/** "Save a copy" — the user picks a destination. */
+/**
+ * "Save a copy" — the user picks a destination. Cancelling the dialog is a
+ * normal outcome and write failures are reported, not swallowed.
+ */
 export async function exportRecording(id: string): Promise<ExportResult> {
   const source = assertLibraryFile(id)
   const win = getMainWindow()
@@ -180,8 +183,19 @@ export async function exportRecording(id: string): Promise<ExportResult> {
   const result = win
     ? await dialog.showSaveDialog(win, options)
     : await dialog.showSaveDialog(options)
-  await copyFile(source, result.filePath as string)
-  return { canceled: false, filePath: result.filePath ?? null, error: null }
+  if (result.canceled || !result.filePath) {
+    return { canceled: true, filePath: null, error: null }
+  }
+  try {
+    await copyFile(source, result.filePath)
+    return { canceled: false, filePath: result.filePath, error: null }
+  } catch (error) {
+    return {
+      canceled: false,
+      filePath: result.filePath,
+      error: error instanceof Error ? error.message : String(error),
+    }
+  }
 }
 
 export async function convertRecording(request: ConvertRequest): Promise<void> {
