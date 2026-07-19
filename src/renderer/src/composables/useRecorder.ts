@@ -90,6 +90,10 @@ export function useRecorder() {
     if (phase.value !== 'idle') return
     error.value = null
     warning.value = null
+
+    // Reset per-take state: without this, take #2 would still contain the
+    // chunks of take #1 (the bug the original version of this app shipped).
+    chunks = []
     bytesRecorded.value = 0
     elapsedMs.value = 0
     lastRecording.value = null
@@ -188,6 +192,7 @@ export function useRecorder() {
     recorder = null
     startedAt = 0
     const blob = new Blob(chunks, { type: mimeType })
+    chunks = []
     stopTracks()
 
     try {
