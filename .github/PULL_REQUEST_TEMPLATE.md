@@ -1,12 +1,9 @@
-<!-- Thank you for contributing! -->
+### What does this PR do?
 
-### Description
+<!-- A short summary of the change and the motivation behind it. -->
 
-<!-- Please insert your description here and provide especially info about the "what" this PR is solving -->
+### Checklist
 
-### What is the purpose of this pull request? <!-- (put an "X" next to an item) -->
-
-- [ ] Bug fix
-- [ ] New Feature
-- [ ] Documentation update
-- [ ] Other
+- [ ] `pnpm lint && pnpm typecheck && pnpm test` pass locally
+- [ ] `pnpm build && pnpm test:e2e` pass locally
+- [ ] Docs updated if behavior changed
