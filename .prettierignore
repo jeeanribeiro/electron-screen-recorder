@@ -1,0 +1,10 @@
+node_modules
+out
+dist
+release
+build
+docs/assets
+playwright-report
+test-results
+pnpm-lock.yaml
+CHANGELOG.md
