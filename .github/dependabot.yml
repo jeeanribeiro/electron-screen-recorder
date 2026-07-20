@@ -9,6 +9,10 @@ updates:
         update-types:
           - minor
           - patch
+    ignore:
+      # vue-tsc tracks TypeScript majors with a lag — bump manually once supported.
+      - dependency-name: typescript
+        update-types: ['version-update:semver-major']
   - package-ecosystem: github-actions
     directory: /
     schedule:
