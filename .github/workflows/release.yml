@@ -20,7 +20,7 @@ jobs:
       # Unsigned community builds — never try to discover a signing identity.
       CSC_IDENTITY_AUTO_DISCOVERY: 'false'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: pnpm/action-setup@v4
 
